@@ -1,0 +1,17 @@
+titi	Father
+haha	Mother
+oya	Parent
+ane	ElderSister
+imouto	YoungerSister
+ani	ElderBrother
+otouto	YoungerBrother
+otto	Husband
+tuma	Wife
+musume	Daughter
+musuko	Son
+kyoudai	brother
+simai	Sister
+sobo	Grandmother
+sohu	Grandfather
+sohubo	GreatGrandparent
+mago	Grandchild
