@@ -21,7 +21,7 @@ public:
 	void Insert(std::string lineKey, std::string  lineEngName);
 	std::string Search(std::string key);
 	int CalcHash(std::string key);//キーからハッシュ値を計算
-	void Exit();
+	void Clear();
 
 };
 

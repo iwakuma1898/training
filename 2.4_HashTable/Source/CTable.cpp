@@ -105,13 +105,13 @@ int CTable::CalcHash(std::string Key)//キーからハッシュ値を計算
   @fn
   @brief　ハッシュテーブルに紐づいたリストを削除する
  */
-void CTable::Exit()
+void CTable::Clear()
 {
 	for (int i = 0; i < TableMAX; i++)//テーブルの全ての配列を探索
 	{
 		if (Table[i].GetMyList() != NULL)//配列に紐づいたリストを発見
 		{
-			Table[i].GetMyList()->Exit();//リストを削除
+			Table[i].GetMyList()->Clear();//リストを削除
 		}
 	}
 }

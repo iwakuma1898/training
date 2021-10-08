@@ -13,8 +13,8 @@ void CNode::SetPrev(CNode *prev) { Prev = prev; }
 void CNode::SetNext(CNode *next) { Next = next; }
 
 //ノードクラスのメンバ変数の参照
-std::string CNode::GetKey()const { return Key; };
-std::string CNode::GetEngName()const { return EngName; };
+const std::string& CNode::GetKey()const { return Key; };
+const std::string& CNode::GetEngName()const { return EngName; };
 CNode* CNode::GetPrev()const { return Prev; };
 CNode* CNode::GetNext()const { return Next; };
 

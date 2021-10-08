@@ -21,11 +21,13 @@
   <ItemGroup>
     <ClCompile Include="CList.cpp" />
     <ClCompile Include="CNode.cpp" />
+    <ClCompile Include="CQueue.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CList.h" />
     <ClInclude Include="CNode.h" />
+    <ClInclude Include="CQueue.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

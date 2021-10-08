@@ -22,8 +22,8 @@ public:
 	void SetPrev(CNode *prev);
 	void SetNext(CNode *next);
 
-	std::string GetKey()const;
-	std::string GetEngName()const ;
+	const std::string& GetKey()const;
+	const std::string& GetEngName()const ;
 	CNode* GetPrev()const;
 	CNode* GetNext()const ;
 };

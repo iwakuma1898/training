@@ -119,12 +119,14 @@
     <ClInclude Include="CNode.h" />
     <ClInclude Include="CNode_Table.h" />
     <ClInclude Include="CTable.h" />
+    <ClInclude Include="CTableManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CList.cpp" />
     <ClCompile Include="CNode.cpp" />
     <ClCompile Include="CNode_Table.cpp" />
     <ClCompile Include="CTable.cpp" />
+    <ClCompile Include="CTableManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

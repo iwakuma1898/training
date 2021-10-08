@@ -1,7 +1,7 @@
 /*
   @brief 双方向リストを構成するノード（最小単位）のクラス
   @author 岩熊一樹
-  @date 10/6
+  @date 10/8
  */
 
 #pragma once
@@ -16,13 +16,13 @@ private:
 
 public:
 
-	void SetNum(const int &num);
+	void SetNum(int &num);
 	void SetName(const std::string &name);
 	void SetPrev(CNode *prev);
 	void SetNext(CNode *next);
 
 	int GetNum()const;
-	std::string GetName()const;
+	const std::string& GetName()const;
 	CNode* GetPrev()const;
 	CNode* GetNext()const;
 };

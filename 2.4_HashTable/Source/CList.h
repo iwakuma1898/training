@@ -18,10 +18,10 @@ private:
 	CNode *Node;//参照用のデータ
 
 public:
-	CNode* GetDummy_First()const ;
-	CNode* GetDummy_End()const;
+	const CNode* GetDummy_First()const ;
+	const CNode* GetDummy_End()const;
 
 	CList();
 	void Insert(std::string lineKey, std::string lineName);
-	void Exit();
+	void Clear();
 };

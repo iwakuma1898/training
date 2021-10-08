@@ -1,7 +1,7 @@
 /*
   @brief 双方向リストのクラス
   @author 岩熊一樹
-  @date 10/6
+  @date 10/8
  */
 
 #include "CList.h"
@@ -11,8 +11,8 @@
    @brief　メンバ変数の参照
   */
 
-CNode* CList::GetDummy_First()const { return Dummy_First; };
-CNode* CList::GetDummy_End()const { return Dummy_End; };
+const CNode* CList::GetDummy_First()const { return Dummy_First; };
+const CNode* CList::GetDummy_End()const { return Dummy_End; };
 
 /*
   @fn
@@ -125,7 +125,7 @@ void CList::SortScore()
   @fn
   @brief　生成したノードを全て削除する
  */
-void CList::Exit()
+void CList::Clear()
 {
 	CNode *box = Dummy_First;
 	while (box != Dummy_End)

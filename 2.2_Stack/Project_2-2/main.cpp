@@ -1,63 +1,21 @@
-#include "CList.h"
-#include "CNode.h"
+#include "CStack.h"
 
-
-CList myList;
+CStack myStack;
 
 int main()
 {
-	printf("\n");
-	printf("<スタックを用いた後入れ先出しプログラム>\n");
-	printf("\n");
+	//初期化
+	myStack.Init();
 
-	//入力
-	bool InputEndFg = false;//
-	int DataCnt = 1;
-	std::string str;
-
-	while (InputEndFg == false)
-	{
-		printf("\n");
-		printf("%d人目のデータを入力\n", DataCnt);
-		printf("名前を入力してください：");
-
-		std::cin >> str;//入力
-		myList.Insert(DataCnt, str);//ノードを生成し挿入する
-
-		printf("\n");
-		printf("入力を続けますか？\n");
-		printf("y：はい、入力を続けます\n");
-		printf("n：いいえ、終了します\n");
-
-		rewind(stdin);//キーボード バッファをクリア
-
-		char YorN = getchar();//キーボードから入力した文字の一文字だけを変数に格納する変数
-
-		if (YorN == 'n')//終了処理
-		{
-			InputEndFg = true;
-		}
-
-
-		DataCnt++;
-	}
+	//更新（入力）
+	myStack.Update();
 
 	//描画
-	printf("\n");
-	printf("<後入れ先出し順に出力>\n");
-	for (CNode *i = myList.GetDummy_End()->GetPrev(); i != myList.GetDummy_First(); i = i->GetPrev())
-	{
-		std::cout << i->GetNum()<<"番目：";
-		std::cout << i->GetName() << std::endl;
-	}
+	myStack.Draw();
 
-	printf("\n");
-	printf("エンターキーで終了\n");
-	rewind(stdin);//キーボード バッファをクリア
-	getchar();
+	//終了処理
+	myStack.Clear();
 
-	//リストの削除
-	myList.Exit();
 
 	return 0;
 }
