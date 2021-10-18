@@ -1,0 +1,7 @@
+﻿  main.cpp
+main.obj : error LNK2001: 外部シンボル ""public: struct TNode<struct TRecord> * __thiscall CList<struct TRecord>::GetDummy_End(void)const " (?GetDummy_End@?$CList@UTRecord@@@@QBEPAU?$TNode@UTRecord@@@@XZ)" は未解決です。
+main.obj : error LNK2001: 外部シンボル ""public: struct TNode<struct TRecord> * __thiscall CList<struct TRecord>::GetDummy_First(void)const " (?GetDummy_First@?$CList@UTRecord@@@@QBEPAU?$TNode@UTRecord@@@@XZ)" は未解決です。
+main.obj : error LNK2001: 外部シンボル ""public: void __thiscall CList<struct TRecord>::Exit(void)" (?Exit@?$CList@UTRecord@@@@QAEXXZ)" は未解決です。
+main.obj : error LNK2001: 外部シンボル ""public: __thiscall CList<struct TRecord>::CList<struct TRecord>(void)" (??0?$CList@UTRecord@@@@QAE@XZ)" は未解決です。
+main.obj : error LNK2001: 外部シンボル ""void __cdecl DataInList<struct TRecord>(class std::basic_ifstream<char,struct std::char_traits<char> > &,class CList<struct TRecord>)" (??$DataInList@UTRecord@@@@YAXAAV?$basic_ifstream@DU?$char_traits@D@std@@@std@@V?$CList@UTRecord@@@@@Z)" は未解決です。
+C:\Users\ohs95038\Desktop\インターン\エンジニア課題\1_3_双方リストをテンプレート化する\Test\Release\Result.exe : fatal error LNK1120: 5 件の未解決の外部参照
