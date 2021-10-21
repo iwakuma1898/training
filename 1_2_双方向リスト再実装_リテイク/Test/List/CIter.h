@@ -9,12 +9,9 @@
 
 class CConstIterator
 {
-
-protected:
-	//参照中のノード
+public:
 	TNode* m_node;
 
-public:
 /*
   @breif	コンストラクタ
  */
@@ -36,8 +33,7 @@ public:
   @breif　　イテレータの指す要素を取得する[const版]（）
   @return　　イテレータの指す要素[const版]（）
  */
-	TNode* GetData()const;
-
+	TRecord& GetRecord()const;
 };
 
 
@@ -61,7 +57,7 @@ public:
   @breif　　イテレータの指す要素を取得する[非const版]（）
   @return　　イテレータの指す要素[非const版]（）
  */
-	TNode* GetData();
+	TRecord& GetRecord();
 
 
 };

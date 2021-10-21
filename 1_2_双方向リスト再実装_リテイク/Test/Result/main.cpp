@@ -20,19 +20,8 @@ int main()
 	//ファイルデータをリストにセット
 	DataInList(file, myList);
 
-	//リストの先頭から描画
-	for (CIterator i = myList.GetFirstIter(); i.GetData()->m_next != myList.GetFirstIter().GetData(); i.GoNextNode())
-	{
-		std::cout << i.GetData()->m_record.m_score;
-		std::cout << i.GetData()->m_record.m_name << std::endl;
-	}
-
-
 
 	getchar();
-
-
-	myList.Clear();
 
 
 	return 0;

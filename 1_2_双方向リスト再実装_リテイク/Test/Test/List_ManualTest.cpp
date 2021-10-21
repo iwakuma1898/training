@@ -198,7 +198,7 @@ namespace ex01_DataStructure
 			//it = list.GetEndNode();//末尾イテレータの取得
 			it = list.GetEndIter();//末尾イテレータの取得
 
-			EXPECT_EQ(true, it.GetData()->m_record.m_name == "FirstIn");
+			EXPECT_EQ(true, it.GetRecord().m_name == "FirstIn");
 
 #endif //TT_TEST_GET_ITERATOR_WHEN_CONST	
 			SUCCEED();

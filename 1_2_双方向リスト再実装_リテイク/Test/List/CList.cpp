@@ -27,28 +27,21 @@ CList::CList()
  */
 CList::~CList()
 {
-
-
-}
-
-
-/*
-  @fn
-  @brief　生成したノードを全て削除する
- */
-void CList::Clear()
-{
-	TNode *box = m_dummy;
-	while (box->m_next != m_dummy)
+	TNode* mNode = m_dummy->m_prev;
+	TNode* deleteNode = nullptr;
+	// 生成したノードを全て削除する
+	while (mNode != m_dummy)
 	{
-		box = box->m_next;//次のノードへ
-		m_node = box;
-		delete m_node;
+		deleteNode = mNode;
+		mNode = mNode->m_prev;
+		delete deleteNode;
 	}
-	delete box;//box==Dummy_Endを削除して終了
-
-	delete this;
+	delete m_dummy;// 最後
+	m_dummy = nullptr;
 }
+
+
+
 
 /*
   @fn
@@ -59,23 +52,23 @@ void CList::Clear()
  */
 bool CList::Insert(CConstIterator itr, const TRecord& record) 
 {
-	if (itr.GetData() ==nullptr)
+	if (itr.m_node ==nullptr)
 	{
 		return false;//処理抜け
 	}
 
 
 	//ノードを生成
-	m_node = new TNode();
+	TNode *m_node = new TNode();
 	//データセット
 	m_node->m_record.m_score = record.m_score;//
 	m_node->m_record.m_name = record.m_name;//名前
 
 
 	//挿入する位置の前にあるノード
-	TNode* InsertPrev = itr.GetData();
+	TNode* InsertPrev = itr.m_node;
 	//挿入する位置の次にあるノード
-	TNode* InsertNext = itr.GetData()->m_next;
+	TNode* InsertNext = itr.m_node->m_next;
 
 	//そのノードの後に挿入する
 	m_node->m_prev = InsertPrev;
@@ -98,7 +91,7 @@ bool CList::Delete(CConstIterator itr)
 	//ノードの削除箇所を検索
 	for (TNode *i = m_dummy->m_next; i != m_dummy; i = i->m_next)
 	{
-		if (i == itr.GetData())//見つかった場合（先頭・中間ノードの後を削除する場合）
+		if (i == itr.m_node)//見つかった場合（先頭・中間ノードの後を削除する場合）
 		{
 			//削除する位置の前にあるノード
 			TNode* DeletePrev = i->m_prev;

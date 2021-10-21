@@ -39,4 +39,11 @@ void DataInList(std::ifstream &file, CList m_List)
 		m_List.Insert(it, lineData);
 		it = m_List.GetEndIter();
 	}
+
+	//ƒŠƒXƒg‚Ìæ“ª‚©‚ç•`‰æ
+	for (CIterator i = m_List.GetFirstIter(); i.m_node->m_next != m_List.GetFirstIter().m_node; i.GoNextNode())
+	{
+		std::cout << i.m_node->m_record.m_score;
+		std::cout << i.m_node->m_record.m_name << std::endl;
+	}
 }

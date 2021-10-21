@@ -15,18 +15,13 @@ class CList
 {
 private:
 	TNode *m_dummy;
-	TNode *m_node;//参照用のデータ
+
 
 public:
 
 	CList();//コンストラクタ
 	~CList();//デスストラクタ
 
-	/**
-* @brief	終了処理
-* @return　
-*/
-	void Clear();
 
 /**
 * @brief	データの挿入（イテレータ）
