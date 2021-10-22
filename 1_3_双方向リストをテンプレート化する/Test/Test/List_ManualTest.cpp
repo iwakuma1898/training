@@ -21,6 +21,10 @@
 //#include "pch.h"
 #include "List_ManualTest.h"
 
+#include "../List/TRecord.h"
+
+#include "../List/CIter.h"
+
 namespace ex01_DataStructure
 {
 	namespace chapter2
@@ -63,7 +67,8 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_INSERT_WHEN_CONST
 			const CList<TRecord> list;
-			CConstIterator<TRecord> it = list.GetDummyFirst();
+			CConstIterator<TRecord> it = list.GetFirstIter();
+
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
 			list.Insert(it, record);//
 #endif //TT_TEST_INSERT_WHEN_CONST
@@ -84,7 +89,8 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_ERASE_WHEN_CONST
 			const CList<TRecord> list;
-			CConstIterator<TRecord> it = list.GetDummyFirst();
+			CConstIterator<TRecord> it = list.GetFirstIter();
+
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
 			list.Insert(it, record);//
 #endif //TT_TEST_ERASE_WHEN_CONST
@@ -102,7 +108,8 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_GET_HEAD_ITERATOR_WHEN_CONST
 			const CList<TRecord> list;
-			CIterator<TRecord> it = list.GetDummyFirst();
+			CIterator<TRecord> it = list.GetFirstIter();
+
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
 			list.Insert(it, record);//
 #endif //TT_TEST_GET_HEAD_ITERATOR_WHEN_CONST
@@ -120,7 +127,8 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_GET_HEAD_CONST_ITERATOR_WHEN_CONST
 			CList<TRecord> list;
-			CConstIterator<TRecord> it = list.GetDummyFirst();
+			CConstIterator<TRecord> it = list.GetFirstIter();
+
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
 			list.Insert(it, record);//
 #endif //TT_TEST_GET_HEAD_ITERATOR_WHEN_CONST
@@ -138,7 +146,8 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_GET_TAIL_ITERATOR_WHEN_CONST
 			const CList<TRecord> list;
-			CIterator<TRecord> it = list.GetDummyEnd();
+			CIterator<TRecord> it = list.GetEndIter();
+
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
 			list.Insert(it, record);//
 #endif //TT_TEST_GET_TAIL_ITERATOR_WHEN_CONST
@@ -157,7 +166,8 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_GET_TAIL_CONST_ITERATOR_WHEN_CONST
 			CList<TRecord> list;
-			CConstIterator<TRecord> it = list.GetDummyEnd();
+			CConstIterator<TRecord> it = list.GetEndIter();
+
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
 			list.Insert(it, record);//
 #endif //TT_TEST_GET_TAIL_CONST_ITERATOR_WHEN_CONST
@@ -178,11 +188,13 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_GET_ITERATOR_WHEN_CONST	
 			const CList<TRecord> list;//リスト生成
-			CConstIterator<TRecord> it = list.GetDummyEnd();
+			CConstIterator<TRecord> it = list.GetEndIter();
+
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
-			it = list.GetEndNode();//末尾イテレータの取得
-			EXPECT_EQ(true, it.Getm_node()->m_record.m_name == "FirstIn");
+			it = list.GetEndIter();//末尾イテレータの取得
+
+			EXPECT_EQ(true, it.GetRecord().m_name == "FirstIn");
 
 #endif //TT_TEST_GET_ITERATOR_WHEN_CONST	
 			SUCCEED();

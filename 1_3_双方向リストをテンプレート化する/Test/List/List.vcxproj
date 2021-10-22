@@ -117,14 +117,9 @@
   <ItemGroup>
     <ClInclude Include="CIter.h" />
     <ClInclude Include="CList.h" />
-    <ClInclude Include="CalcfileData.h" />
-    <ClInclude Include="TNode.h" />
     <ClInclude Include="TRecord.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CIter.cpp" />
-    <ClCompile Include="CList.cpp" />
-    <ClCompile Include="CalcfileData.cpp" />
     <ClCompile Include="TRecord.cpp" />
   </ItemGroup>
   <ItemGroup>

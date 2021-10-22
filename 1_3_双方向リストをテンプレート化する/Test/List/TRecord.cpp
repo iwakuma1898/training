@@ -1,17 +1,14 @@
-/*
-  @brief 成績データ
-  @author 岩熊一樹
-  @date 10/18
- */
-
 #include "TRecord.h"
 
-bool TRecord::operator==(TRecord& data) const
+//=============================================================================
+// 成績データ構造体の実装
+//=============================================================================
+bool TRecord::operator==(TRecord& pData) const
 {
-	return m_score == data.m_score && m_name == data.m_name;
+	return m_score == pData.m_score && m_name == pData.m_name;
 }
 //-----------------------------------------------------------------------------
-bool TRecord::operator==(const TRecord& data) const
+bool TRecord::operator==(const TRecord& pData) const
 {
-	return m_score == data.m_score && m_name == data.m_name;
+	return m_score == pData.m_score && m_name == pData.m_name;
 }

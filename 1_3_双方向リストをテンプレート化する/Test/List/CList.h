@@ -5,42 +5,48 @@
  */
 
 #pragma once
-#include <fstream>
-#include <iostream>
-#include <string>
-#include "TNode.h"
-#include "CIter.h"
+//#include <fstream>
+//#include <iostream>
+//#include <string>
+//#include "TNode.h"
+//#include "CIter.h"
 
+template<class T>
+struct TNode
+{
+	TNode *m_prev;//前ポインタ
+	TNode *m_next;//後ポインタ
 
-template<class T>//テンプレート化
+	T* m_record;//成績データ
+};
+
+template<class T>
+class CConstIterator;
+template<class T>
+class CIterator;
+/*
+  @brief 双方向リストのクラス
+  @author 岩熊一樹
+  @date 10/6
+ */
+template<class T>
 class CList
 {
 private:
-	TNode<T> *m_dummyFirst;
-	TNode<T> *m_dummyEnd;
-	TNode<T> *m_node;//参照用のデータ
+	TNode<T> *m_dummy;
+
 
 public:
 
-	CList();
-
-	/**
-* @brief	データをセットする
-* @return　
-*/
-	void Init(std::ifstream &file);
-/**
-* @brief	終了処理
-* @return　
-*/
-	void Exit();
+	CList();//コンストラクタ
+	~CList();//デスストラクタ
 
 
 /**
 * @brief	データの挿入（イテレータ）
 * @return　 成功ならtrue,失敗ならfalse
 */
-	bool Insert(CConstIterator<T> itr, const TRecord& record);
+	bool Insert(CConstIterator<T> itr, const T& record);
 	/**
 	* @brief	データの削除（イテレータ）
 	* @return　 成功ならtrue,失敗ならfalse
@@ -52,47 +58,26 @@ public:
 * @brief	先頭ノードを指すイテレータの取得
 * @return　　先頭イテレータ
 */
-	CIterator<T> GetFirstNode();
+	CIterator<T> GetFirstIter();
 
 
-	/**
-	* @brief	先頭ダミーノードの取得
-	* @return　　先頭ダミーノード
-	*/
-	TNode<T>* GetDummy_First()const;
+
 
 /**
  * @brief	末尾ノードを指すイテレータの取得
  * @return	末尾イテレータ
- */
-	CIterator<T> GetEndNode();
-
-	/**
-	* @brief	末尾ダミーノードの取得
-	* @return　　末尾ダミーノード
-	*/
-	TNode<T>* GetDummy_End()const;
-
-
-/**
-* @brief	指定された番目のノードを返す
-* @return　　指定された番目のノード
-*/
-	TNode<T>* GetNode(int listNumber)const;
+ //////*/
+	CIterator<T> GetEndIter();
 
 
 
 
-	/**
-* @brief	先頭ダミーノードを指すイテレータの取得
-* @return　　先頭ダミーイテレータ
-*/
-	CIterator<T> GetDummyFirst();
-		/**
-	 * @brief	末尾ダミーノードを指すイテレータの取得
-	 * @return	末尾ダミーイテレータ
-	 */
-	CIterator<T> GetDummyEnd();
+///**
+//* @brief	指定された番目のイテレータを返す
+//* @return　　指定された番目のイテレータ
+//*/
+	CIterator<T> GetIter(int listNumber)const;
+
 
 
 /**
@@ -102,4 +87,8 @@ public:
 	int  GetDataCnt() const;
 
 
+
 };
+
+
+#include "CList.inl"

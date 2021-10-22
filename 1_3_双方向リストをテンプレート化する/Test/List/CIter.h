@@ -1,20 +1,20 @@
-#pragma once
-#include "TNode.h"
-
 /*
   @brief 反復子のクラス（const版）
   @author 岩熊一樹
   @date 10/6
  */
-template<class T>//テンプレート化
+
+#pragma once
+
+template<class T>
+struct TNode;
+
+template<class T>
 class CConstIterator
 {
-
-protected:
-	//参照中のノード
+public:
 	TNode<T>* m_node;
 
-public:
 /*
   @breif	コンストラクタ
  */
@@ -36,8 +36,8 @@ public:
   @breif　　イテレータの指す要素を取得する[const版]（）
   @return　　イテレータの指す要素[const版]（）
  */
-	TNode<T>* Getm_node()const;/*{ return m_node; }*/
-
+	//const T& GetRecord()const;
+	const T* GetRecord()const;
 };
 
 
@@ -48,27 +48,24 @@ public:
  */
 
 //イテレーター（リストなどのデータ構造を簡単に辿れる仕組み）
-template<class T>//テンプレート化
+template<class T>
 class CIterator :public CConstIterator<T>
 {
-protected:
-	//参照中のノード
-	TNode<T>* m_node;
-
-
 public:
+	TNode<T>* m_node;
 
 /*
   @breif　コンストラクタ
  */
-	CIterator(TNode<T>* p) : CConstIterator(p) {}//継承
+	CIterator(TNode<T>* p) : CConstIterator<T>(p) {}//継承
 
 /*
   @breif　　イテレータの指す要素を取得する[非const版]（）
   @return　　イテレータの指す要素[非const版]（）
  */
-	TNode<T>* Getm_node();
-
+	//T& GetRecord();
+	T* GetRecord();
 
 };
 
+#include "CIter.inl"

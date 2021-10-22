@@ -1,3 +1,1 @@
-﻿  CalcfileData.cpp
-CalcfileData.obj : warning LNK4221: このオブジェクト ファイルは、以前に未定義であったパブリック シンボルを定義していないため、このライブラリを使用するリンク操作では使用されません
-  List.vcxproj -> C:\Users\ohs95038\Desktop\インターン\エンジニア課題\1_3_双方リストをテンプレート化する\Test\Debug\List.lib
+﻿  List.vcxproj -> C:\Users\ohs95038\task_training\1_3_双方向リストをテンプレート化する\Test\Debug\List.lib

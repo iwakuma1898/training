@@ -7,16 +7,13 @@
 #pragma once
 #include <string>
 
-
 struct TRecord
 {
+public:
 	int m_score;
 	std::string m_name;
 
-public:
-	//‹¤—p‘Ì‚É‚·‚é
 	bool operator==(TRecord&) const;
-
 	bool operator==(const TRecord&) const;
 
 };

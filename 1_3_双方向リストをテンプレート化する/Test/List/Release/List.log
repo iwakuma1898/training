@@ -1,5 +1,3 @@
 ﻿  CIter.cpp
   CList.cpp
-  CalcfileData.cpp
-  TRecord.cpp
-  List.vcxproj -> C:\Users\ohs95038\Desktop\インターン\エンジニア課題\1_3_双方リストをテンプレート化する\Test\Release\List.lib
+  List.vcxproj -> C:\Users\ohs95038\task_training\1_2_双方向リスト再実装_リテイク\Test\Release\List.lib
