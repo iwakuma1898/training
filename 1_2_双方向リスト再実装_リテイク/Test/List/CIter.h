@@ -33,7 +33,7 @@ public:
   @breif　　イテレータの指す要素を取得する[const版]（）
   @return　　イテレータの指す要素[const版]（）
  */
-	TRecord& GetRecord()const;
+	const TRecord& GetRecord()const;
 };
 
 

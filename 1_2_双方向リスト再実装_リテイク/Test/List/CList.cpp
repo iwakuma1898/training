@@ -59,10 +59,10 @@ bool CList::Insert(CConstIterator itr, const TRecord& record)
 
 
 	//ノードを生成
-	TNode *m_node = new TNode();
+	TNode *pNode = new TNode();
 	//データセット
-	m_node->m_record.m_score = record.m_score;//
-	m_node->m_record.m_name = record.m_name;//名前
+	pNode->m_record.m_score = record.m_score;//
+	pNode->m_record.m_name = record.m_name;//名前
 
 
 	//挿入する位置の前にあるノード
@@ -71,12 +71,12 @@ bool CList::Insert(CConstIterator itr, const TRecord& record)
 	TNode* InsertNext = itr.m_node->m_next;
 
 	//そのノードの後に挿入する
-	m_node->m_prev = InsertPrev;
-	m_node->m_next = InsertNext;
+	pNode->m_prev = InsertPrev;
+	pNode->m_next = InsertNext;
 
 	//前後のノードのポインタを繋ぎ直し
-	InsertPrev->m_next = m_node;
-	InsertNext->m_prev = m_node;
+	InsertPrev->m_next = pNode;
+	InsertNext->m_prev = pNode;
 
 	return true;//処理抜け
 }
@@ -138,12 +138,12 @@ CIterator CList::GetEndIter()
 * @brief	指定された番目のノードを返す
 * @return　　指定された番目のノード
 */
-TNode* CList::GetNode(int listNumber)const
+CIterator CList::GetIter(int listNumber)const
 {
-	int cnt = 1;//1番目
+	int cnt = 0;//(0ベース)
 
 	//先頭からリストを辿り数える
-	for (TNode *i = m_dummy->m_next; i != m_dummy; i = i->m_next)
+	for (CIterator i = m_dummy->m_next; i.m_node != m_dummy; i.GoNextNode())
 	{
 		if (cnt == listNumber)
 		{

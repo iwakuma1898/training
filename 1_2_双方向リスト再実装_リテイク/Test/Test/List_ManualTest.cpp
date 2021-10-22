@@ -63,7 +63,6 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_INSERT_WHEN_CONST
 			const CList list;
-			//CConstIterator it = list.GetDummyFirst();
 			CConstIterator it = list.GetFirstIter();
 
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
@@ -86,7 +85,6 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_ERASE_WHEN_CONST
 			const CList list;
-			//CConstIterator it = list.GetDummyFirst();
 			CConstIterator it = list.GetFirstIter();
 
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
@@ -106,7 +104,6 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_GET_HEAD_ITERATOR_WHEN_CONST
 			const CList list;
-			//CIterator it = list.GetDummyFirst();
 			CIterator it = list.GetFirstIter();
 
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
@@ -126,7 +123,6 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_GET_HEAD_CONST_ITERATOR_WHEN_CONST
 			CList list;
-			//CConstIterator it = list.GetDummyFirst();
 			CConstIterator it = list.GetFirstIter();
 
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
@@ -146,7 +142,6 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_GET_TAIL_ITERATOR_WHEN_CONST
 			const CList list;
-			//CIterator it = list.GetDummyEnd();
 			CIterator it = list.GetEndIter();
 
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
@@ -167,7 +162,6 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_GET_TAIL_CONST_ITERATOR_WHEN_CONST
 			CList list;
-			//CConstIterator it = list.GetDummyEnd();
 			CConstIterator it = list.GetEndIter();
 
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
@@ -190,12 +184,10 @@ namespace ex01_DataStructure
 		{
 #if defined TT_TEST_GET_ITERATOR_WHEN_CONST	
 			const CList list;//リスト生成
-			//CConstIterator it = list.GetDummyEnd();
 			CConstIterator it = list.GetEndIter();
 
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
-			//it = list.GetEndNode();//末尾イテレータの取得
 			it = list.GetEndIter();//末尾イテレータの取得
 
 			EXPECT_EQ(true, it.GetRecord().m_name == "FirstIn");

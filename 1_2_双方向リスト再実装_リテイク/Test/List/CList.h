@@ -47,18 +47,17 @@ public:
 /**
  * @brief	末尾ノードを指すイテレータの取得
  * @return	末尾イテレータ
- */
+ //////*/
 	CIterator GetEndIter();
 
 
 
 
-/**
-* @brief	指定された番目のノードを返す
-* @return　　指定された番目のノード
-*/
-	TNode* GetNode(int listNumber)const;
-
+///**
+//* @brief	指定された番目のイテレータを返す
+//* @return　　指定された番目のイテレータ
+//*/
+	CIterator GetIter(int listNumber)const;
 
 
 
