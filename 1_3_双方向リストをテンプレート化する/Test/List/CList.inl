@@ -1,7 +1,7 @@
 /*
-  @brief 双方向リストのクラス
+  @brief 双方向リストのインライン展開
   @author 岩熊一樹
-  @date 10/6
+  @date 10/20
  */
 
 #pragma once
@@ -20,7 +20,6 @@ CList<T>::CList()
 	//ダミーノード
 	m_dummy->m_next = m_dummy;
 	m_dummy->m_prev = m_dummy;//自身のアドレスにセットし、「始点」とする
-	m_dummy->m_record->m_name = "m_dummy";
 }
 
 /*
@@ -65,9 +64,9 @@ bool CList<T>::Insert(CConstIterator<T> itr, const T& record)
 	//ノードを生成
 	TNode<T> *pNode = new TNode<T>();
 	//データセット
-	pNode->m_record->m_score = record.m_score;//
-	pNode->m_record->m_name = record.m_name;//名前
-
+	//pNode->m_record->m_score = record.m_score;//
+	//pNode->m_record->m_name = record.m_name;//名前
+	pNode->m_record = new T{ record };
 
 	//挿入する位置の前にあるノード
 	TNode<T>* InsertPrev = itr.m_node;
@@ -146,7 +145,7 @@ CIterator<T> CList<T>::GetEndIter()
 * @return　　指定された番目のノード
 */
 template<class T>
-CIterator<T> CList<T>::GetIter(int listNumber)const
+CConstIterator<T> CList<T>::GetIter(int listNumber)const
 {
 	int cnt = 0;//(0ベース)
 
@@ -162,7 +161,6 @@ CIterator<T> CList<T>::GetIter(int listNumber)const
 	}
 
 	//処理抜けしてしまうなら、リストのノードの数に対して引数に誤りがある
-	return false;
 }
 
 

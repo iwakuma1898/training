@@ -17,3 +17,4 @@ public:
 	bool operator==(const TRecord&) const;
 
 };
+

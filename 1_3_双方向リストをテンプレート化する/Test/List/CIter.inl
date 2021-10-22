@@ -1,5 +1,10 @@
-#pragma once
+/*
+  @brief 反復子のインライン展開
+  @author 岩熊一樹
+  @date 10/20
+ */
 
+#pragma once
 
 //===========================CConstIterator
 /*
@@ -9,7 +14,7 @@ template<class T>
 CConstIterator<T>::CConstIterator(TNode<T>* p)//番地を指定し、どこから始めるのかを指定
 	: m_node(p)
 {
-	//m_node = p;
+
 }
 
 /*
@@ -37,7 +42,6 @@ void CConstIterator<T>::GoNextNode()
   @return　　イテレータの指す要素[const版]（）
  */
 template<class T>
-//const T& CConstIterator<T>::GetRecord()const { return m_node->m_record; }
 const T* CConstIterator<T>::GetRecord()const { return m_node->m_record; }
 
 
@@ -49,5 +53,4 @@ const T* CConstIterator<T>::GetRecord()const { return m_node->m_record; }
   @return　　イテレータの指す要素[非const版]（）
  */
 template<class T>
-//T& CIterator<T>::GetRecord() { return m_node->m_record; }
 T* CIterator<T>::GetRecord() { return m_node->m_record; }

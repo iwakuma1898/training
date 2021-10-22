@@ -458,7 +458,7 @@ namespace ex01_DataStructure
 			it.GoNextNode();
 			record = { 200,"SecondIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//更にデータ挿入
-			it = nullptr;//不正なイテレータを指定
+			it /*= nullptr*/;//不正なイテレータを指定
 			ASSERT_FALSE(list.Delete(it));
 
 			//中間ノードが削除されたかチェック
@@ -1092,31 +1092,7 @@ namespace ex01_DataStructure
 		//	@details	ID:イテレータ-9\n
 		//	@result　　 成功：次の要素を指す.インクリメント呼び出し時の値と、インクリメント実行後の値の両方を確認
 		//***********************************************************************************/
-		TEST(IteratorTest, TestPreIteratorForEndWhenIncrement)
-		{
-			CList<TRecord> list;//リスト生成
-			CIterator<TRecord> it = list.GetEndIter();
 
-
-			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//1個目を挿入
-
-			it.GoNextNode();
-			record = { 200,"SecondIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//2個目を挿入
-
-			it.GoNextNode();
-			record = { 300,"ThirdIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//3個目を挿入
-
-			int Increment = 0;
-			it = list.GetIter(Increment);//イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//1個目を確認
-			it = list.GetIter(++Increment);//前置インクリメント（インクリメントしてから代入）、イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//2個目を確認
-			it = list.GetIter(++Increment);//前置インクリメント（インクリメントしてから代入）、イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//3個目を確認
-		}
 
 		TEST(IteratorTest, TestPreIteratorForEndWhenIncrement_Const)
 		{
@@ -1151,37 +1127,7 @@ namespace ex01_DataStructure
 		//	@details	ID:イテレータ-10\n
 		//	@result　　 成功：次の要素を指す.インクリメント呼び出し時の値と、インクリメント実行後の値の両方を確認
 		//***********************************************************************************/
-		TEST(IteratorTest, TestPostIteratorForEndWhenIncrement)
-		{
-			CList<TRecord> list;//リスト生成
-			CIterator<TRecord> it = list.GetEndIter();
 
-			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//1個目を挿入
-
-			it.GoNextNode();
-			record = { 200,"SecondIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//2個目を挿入
-
-			it.GoNextNode();
-			record = { 300,"ThirdIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//3個目を挿入
-
-			int Increment = 0;
-			it = list.GetIter(Increment);//イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//1個目を確認
-
-			it = list.GetIter(Increment++);//後置インクリメント（インクリメントは代入式が終わってから）
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 1）のはず
-			it = list.GetIter(Increment);//現在のイテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//後置インクリメントなので、itに代入後では（Increment =＝ 2）のはず
-
-			it = list.GetIter(Increment++);//後置インクリメント（インクリメントは代入式が終わってから）
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 2）のはず
-			it = list.GetIter(Increment);//現在のイテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//後置インクリメントなので、itに代入後では（Increment =＝ 3）のはず
-
-		}
 
 		TEST(IteratorTest, TestPostIteratorForEndWhenIncrement_Const)
 		{
@@ -1364,30 +1310,7 @@ namespace ex01_DataStructure
 		//	@details	ID:イテレータ-15\n
 		//	@result　　 成功：前の要素を指す.デクリメント呼び出し時の値と、デクリメント実行後の値の両方を確認
 		//***********************************************************************************/
-		TEST(IteratorTest, TestPreIteratorForFirstWhenDecrement)
-		{
-			CList<TRecord> list;//リスト生成
-			CIterator<TRecord> it = list.GetEndIter();
 
-			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//1個目を挿入
-
-			it.GoNextNode();
-			record = { 200,"SecondIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//2個目を挿入
-
-			it.GoNextNode();
-			record = { 300,"ThirdIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//3個目を挿入
-
-			int decrement = 2;
-			it = list.GetIter(decrement);//イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//3個目を確認
-			it = list.GetIter(--decrement);//前置インクリメント（インクリメントしてから代入）、イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//2個目を確認
-			it = list.GetIter(--decrement);//前置インクリメント（インクリメントしてから代入）、イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//1個目を確認
-		}
 
 		TEST(IteratorTest, TestPreIteratorForFirstWhenDecrement_Const)
 		{
@@ -1421,37 +1344,7 @@ namespace ex01_DataStructure
 		//	@details	ID:イテレータ-16\n
 		//	@result　　 成功：前の要素を指す.デクリメント呼び出し時の値と、デクリメント実行後の値の両方を確認
 		//***********************************************************************************/
-		TEST(IteratorTest, TestIteratorWhenDecrement)
-		{
-			CList<TRecord> list;//リスト生成;
-			CIterator<TRecord> it = list.GetEndIter();
 
-
-			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//1個目を挿入
-
-			it.GoNextNode();
-			record = { 200,"SecondIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//2個目を挿入
-
-			it.GoNextNode();
-			record = { 300,"ThirdIn" };//データ内容(スコア、名前)
-			list.Insert(it, record);//3個目を挿入
-
-			int decrement = 2;
-			it = list.GetIter(decrement);//イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//1個目を確認
-
-			it = list.GetIter(decrement--);//後置インクリメント（インクリメントは代入式が終わってから）
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 1）のはず
-			it = list.GetIter(decrement);//現在のイテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//後置インクリメントなので、itに代入後では（Increment =＝ 2）のはず
-
-			it = list.GetIter(decrement--);//後置インクリメント（インクリメントは代入式が終わってから）
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 2）のはず
-			it = list.GetIter(decrement);//現在のイテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//後置インクリメントなので、itに代入後では（Increment =＝ 3）のはず
-		}
 
 		TEST(IteratorTest, TestIteratorWhenDecrement_Const)
 		{

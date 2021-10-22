@@ -5,11 +5,7 @@
  */
 
 #pragma once
-//#include <fstream>
-//#include <iostream>
-//#include <string>
-//#include "TNode.h"
-//#include "CIter.h"
+
 
 template<class T>
 struct TNode
@@ -76,7 +72,7 @@ public:
 //* @brief	指定された番目のイテレータを返す
 //* @return　　指定された番目のイテレータ
 //*/
-	CIterator<T> GetIter(int listNumber)const;
+	CConstIterator<T> GetIter(int listNumber)const;
 
 
 
