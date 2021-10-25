@@ -12,8 +12,11 @@ struct TNode;
 template<class T>
 class CConstIterator
 {
-public:
+protected:
 	TNode<T>* m_node;
+
+public:
+
 
 /*
   @breif	コンストラクタ
@@ -36,7 +39,27 @@ public:
   @breif　　イテレータの指す要素を取得する[const版]（）
   @return　　イテレータの指す要素[const版]（）
  */
-	const T* GetRecord()const;
+	const T& Get()const;
+
+
+	/**
+ * @breif	等価演算子をオーバーロード[const版]
+ * @return	等価比較した結果
+ */
+	bool operator==(const CConstIterator& itr) const;
+
+	/**
+* @breif	非等価演算子をオーバーロード[const版]
+* @return	非等価比較した結果
+*/
+	bool operator!=(const CConstIterator& itr) const;
+
+
+	/**
+* @brief	ノードで不正なものであるかを確認する
+* @return	ダミーノードであるかの真偽結果
+*/
+	bool CheckNode();
 };
 
 
@@ -51,19 +74,31 @@ template<class T>
 class CIterator :public CConstIterator<T>
 {
 public:
-	TNode<T>* m_node;
 
 /*
   @breif　コンストラクタ
  */
-	CIterator(TNode<T>* p) : CConstIterator<T>(p) {}//継承
+	explicit CIterator(TNode<T>* p = nullptr);
+
 
 /*
   @breif　　イテレータの指す要素を取得する[非const版]（）
   @return　　イテレータの指す要素[非const版]（）
  */
-	T* GetRecord();
+	T& Get();
 
+
+/**
+ * @breif	等価演算子をオーバーロード[非const版]
+ * @return	等価比較した結果
+ */
+	bool operator==(const CIterator& itr) const;
+
+	/**
+ * @breif	非等価演算子をオーバーロード[非const版]
+ * @return	非等価比較した結果
+ */
+	bool operator!=(const CIterator& itr) const;
 };
 
 #include "CIter.inl"

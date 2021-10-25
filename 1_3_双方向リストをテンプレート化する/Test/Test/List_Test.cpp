@@ -60,7 +60,7 @@ namespace ex01_DataStructure
 		TEST(GetDataNumTest, TestGetDataCntAfterPushFailed)
 		{
 			CList<TRecord> list;
-			CIterator<TRecord> it = nullptr;//失敗させるようにnullptrを指定
+			CIterator<TRecord> it;//失敗させるように未指定
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
 			ASSERT_FALSE(list.Insert(it, record));
 			EXPECT_EQ(0, list.GetDataCnt());
@@ -93,7 +93,7 @@ namespace ex01_DataStructure
 		TEST(GetDataNumTest, TestGetDataCntPushFailed)
 		{
 			CList<TRecord> list;//リスト生成
-			CIterator<TRecord> it = nullptr;//失敗させるようにnullptrを指定
+			CIterator<TRecord> it;//失敗させるように未指定
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
 			ASSERT_FALSE(list.Insert(it, record));//失敗させる
 			EXPECT_EQ(0, list.GetDataCnt());
@@ -134,8 +134,8 @@ namespace ex01_DataStructure
 
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
 			list.Insert(it, record);//先頭にデータを挿入する
-			it = nullptr;//わざと失敗させる
-			ASSERT_FALSE(list.Delete(it));
+			CIterator<TRecord> it_A;//わざと失敗させるよう未指定のイテレータ
+			ASSERT_FALSE(list.Delete(it_A));
 			EXPECT_EQ(1, list.GetDataCnt());
 		}
 
@@ -201,7 +201,7 @@ namespace ex01_DataStructure
 			list.Insert(it, record);//更に先頭にデータ挿入	
 			it = list.GetFirstIter();
 			it.GoNextNode();
-			EXPECT_EQ(true, it.GetRecord()->m_name== "FirstIn");//最初に入れたものが最後に2番目に来ているか？
+			EXPECT_EQ(true, it.Get().m_name== "FirstIn");//最初に入れたものが最後に2番目に来ているか？
 		}
 
 		//		/**********************************************************************************//**
@@ -224,7 +224,7 @@ namespace ex01_DataStructure
 			list.Insert(it, record);//データが既にある中で末尾にデータ挿入	
 			it = list.GetFirstIter();
 			it.GoNextNode();
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//最後に2番目が来ているか？
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//最後に2番目が来ているか？
 		}
 
 		//		/**********************************************************************************//**
@@ -250,9 +250,9 @@ namespace ex01_DataStructure
 			it = list.GetFirstIter();
 			list.Insert(it, record);//1番目の次⇒2番目に挿入する
 			it.GoNextNode();
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//リストの2番目に3番目に挿入したノードが来ているか？
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");//リストの2番目に3番目に挿入したノードが来ているか？
 			it.GoNextNode();
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//3番目に挿入したノードの位置にあった要素が後ろにずれているか？
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//3番目に挿入したノードの位置にあった要素が後ろにずれているか？
 		}
 
 
@@ -279,9 +279,9 @@ namespace ex01_DataStructure
 			list.GetFirstIter();
 			list.Insert(it, record);//
 			it.GoNextNode();
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//リストの2番目に3番目に挿入したノードが来ているか？
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");//リストの2番目に3番目に挿入したノードが来ているか？
 			it.GoNextNode();
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//3番目に挿入したノードの位置にあった要素が後ろにずれているか？
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//3番目に挿入したノードの位置にあった要素が後ろにずれているか？
 		}
 
 
@@ -296,7 +296,7 @@ namespace ex01_DataStructure
 		{
 			CList<TRecord> list;
 			TRecord record = { 100,"testname" };//データ内容(スコア、名前)
-			CIterator<TRecord> it = nullptr;
+			CIterator<TRecord> it;//わざと失敗するよう未指定のイテレータ
 			list.Insert(it, record);
 			EXPECT_EQ(0, list.GetDataCnt());//何も起きていない（データが増えていない）ことをチェック
 		}
@@ -340,7 +340,7 @@ namespace ex01_DataStructure
 			it = list.GetFirstIter();//先頭イテレータを指定
 			ASSERT_TRUE(list.Delete(it));
 			it = list.GetFirstIter();//先頭イテレータを指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//先頭要素の削除されて2番目が来ているか？
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//先頭要素の削除されて2番目が来ているか？
 		}
 
 		//**********************************************************************************//**
@@ -367,7 +367,7 @@ namespace ex01_DataStructure
 			it = list.GetEndIter();
 			ASSERT_TRUE(list.Delete(it));
 			it = list.GetEndIter();
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//末尾が削除されて2番目が来ているか？
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//末尾が削除されて2番目が来ているか？
 		}
 
 
@@ -399,10 +399,10 @@ namespace ex01_DataStructure
 			//中間ノードが削除されたかチェック
 			it = list.GetFirstIter();//ノードを指定
 
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 			it = list.GetEndIter();//ノードを指定
 
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");
 		}
 
 				//**********************************************************************************//**
@@ -434,10 +434,10 @@ namespace ex01_DataStructure
 			//中間ノードが削除されたかチェック
 			it = list.GetFirstIter();//ノードを指定
 
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 			it = list.GetEndIter();//ノードを指定
 
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");
 		}
 
 
@@ -458,16 +458,14 @@ namespace ex01_DataStructure
 			it.GoNextNode();
 			record = { 200,"SecondIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//更にデータ挿入
-			it /*= nullptr*/;//不正なイテレータを指定
-			ASSERT_FALSE(list.Delete(it));
+			CIterator<TRecord> it_A;//不正なイテレータを指定
+			ASSERT_FALSE(list.Delete(it_A));
 
 			//中間ノードが削除されたかチェック
 			it = list.GetFirstIter();//ノードを指定
-
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it == list.GetIter(0));
 			it = list.GetEndIter();//ノードを指定
-
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");
+			EXPECT_EQ(true, it == list.GetIter(1));
 		}
 
 
@@ -484,7 +482,7 @@ namespace ex01_DataStructure
 			CList<TRecord> list;//リスト生成
 			CIterator<TRecord> it = list.GetFirstIter();//
 
-			EXPECT_EQ(true, it.GetRecord()->m_name== "m_dummy");
+			EXPECT_EQ(true, it== list.GetEndIter());
 		}
 
 //**********************************************************************************//**
@@ -502,7 +500,7 @@ namespace ex01_DataStructure
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//先頭イテレータの取得
 
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 		}
 
 //**********************************************************************************//**
@@ -523,7 +521,7 @@ namespace ex01_DataStructure
 			record = { 200,"SecondIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//先頭イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 		}
 
 
@@ -541,7 +539,7 @@ namespace ex01_DataStructure
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//先頭イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 		}
 
 //**********************************************************************************//**
@@ -562,7 +560,7 @@ namespace ex01_DataStructure
 			record = { 200,"SecondIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//2個目を挿入
 			it = list.GetFirstIter();//先頭イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 		}
 
 
@@ -582,7 +580,7 @@ namespace ex01_DataStructure
 			CList<TRecord> list;//リスト生成
 			CConstIterator<TRecord> it = list.GetFirstIter();//
 
-			EXPECT_EQ(true, it.GetRecord()->m_name == "m_dummy");
+			EXPECT_EQ(true, it == list.GetEndIter());
 		}
 
 		//**********************************************************************************//**
@@ -599,7 +597,7 @@ namespace ex01_DataStructure
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//先頭イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 		}
 
 		//**********************************************************************************//**
@@ -620,7 +618,7 @@ namespace ex01_DataStructure
 			record = { 200,"SecondIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//先頭イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 		}
 
 
@@ -638,7 +636,7 @@ namespace ex01_DataStructure
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//先頭イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 		}
 
 		//**********************************************************************************//**
@@ -659,7 +657,7 @@ namespace ex01_DataStructure
 			record = { 200,"SecondIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//2個目を挿入
 			it = list.GetFirstIter();//先頭イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 		}
 
 
@@ -677,7 +675,7 @@ namespace ex01_DataStructure
 			CList<TRecord> list;//リスト生成
 			CIterator<TRecord> it = list.GetEndIter();//
 
-			EXPECT_EQ(true, it.GetRecord()->m_name == "m_dummy");
+			EXPECT_EQ(true, it == list.GetFirstIter());
 		}
 
 		//**********************************************************************************//**
@@ -694,7 +692,7 @@ namespace ex01_DataStructure
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetEndIter(); //末尾イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 		}
 
 		//**********************************************************************************//**
@@ -715,7 +713,7 @@ namespace ex01_DataStructure
 			record = { 200,"SecondIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetEndIter();//末尾イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");
 		}
 
 
@@ -733,7 +731,7 @@ namespace ex01_DataStructure
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetEndIter();//末尾イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");
 		}
 
 		//**********************************************************************************//**
@@ -754,7 +752,7 @@ namespace ex01_DataStructure
 			record = { 200,"SecondIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//2個目を挿入
 			it = list.GetEndIter();//末尾イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");
 		}
 
 
@@ -772,7 +770,7 @@ namespace ex01_DataStructure
 			CList<TRecord> list;//リスト生成
 			CConstIterator<TRecord> it = list.GetEndIter();//
 
-			EXPECT_EQ(true, it.GetRecord()->m_name == "m_dummy");
+			EXPECT_EQ(true, it == list.GetFirstIter());
 		}
 
 		//**********************************************************************************//**
@@ -789,7 +787,7 @@ namespace ex01_DataStructure
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetEndIter(); //末尾イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it == list.GetIter(0));
 		}
 
 		//**********************************************************************************//**
@@ -810,7 +808,7 @@ namespace ex01_DataStructure
 			record = { 200,"SecondIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetEndIter();//末尾イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");
+			EXPECT_EQ(true, it == list.GetIter(1));
 		}
 
 
@@ -828,7 +826,7 @@ namespace ex01_DataStructure
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetEndIter();//末尾イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");
+			EXPECT_EQ(true, it == list.GetIter(0));
 		}
 
 		//**********************************************************************************//**
@@ -849,7 +847,7 @@ namespace ex01_DataStructure
 			record = { 200,"SecondIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//2個目を挿入
 			it = list.GetEndIter();//末尾イテレータの取得
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");
+			EXPECT_EQ(true, it == list.GetIter(1));
 		}
 
 //=================================== イテレータの指す要素を取得する ===================================
@@ -862,7 +860,7 @@ namespace ex01_DataStructure
 		//***********************************************************************************/
 		TEST(IteratorTest, TestIteratorWhenNoList)
 		{
-			EXPECT_TRUE(true, ASSERT_DEATH(CIterator it)); 
+			EXPECT_TRUE(true, ASSERT_DEATH(CIterator it));
 		}
 
 		TEST(IteratorTest, TestIteratorWhenNoListConst)
@@ -884,8 +882,8 @@ namespace ex01_DataStructure
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//ノードを指定
-			it.GetRecord()->m_name = "Changed";//Iteratorから取得した要素に対して、値の代入
-			EXPECT_EQ(true, it.GetRecord()->m_name == "Changed");//値が変更されていることを確認
+			it.Get().m_name = "Changed";//Iteratorから取得した要素に対して、値の代入
+			EXPECT_EQ(true, it.Get().m_name == "Changed");//値が変更されていることを確認
 		}
 
 		TEST(IteratorTest, TestIteratorWhenSubstitutionWhenConst)
@@ -896,9 +894,9 @@ namespace ex01_DataStructure
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//ノードを指定
-			//it.GetRecord()->m_name = "Changed";//
-			//EXPECT_EQ(true, it.GetRecord()->m_name == "Changed");//	
-			EXPECT_TRUE(true, ASSERT_DEATH(it.GetRecord()->m_name = "Changed"));//constなので、コンパイルエラーになることを確認
+			//it.Get()->m_name = "Changed";//
+			//EXPECT_EQ(true, it.Get()->m_name == "Changed");//	
+			EXPECT_TRUE(true, ASSERT_DEATH(it.Get().m_name = "Changed"));//constなので、コンパイルエラーになることを確認
 		}
 
 		//**********************************************************************************//**
@@ -1054,11 +1052,11 @@ namespace ex01_DataStructure
 			list.Insert(it, record);//3個目を挿入
 
 			it = list.GetFirstIter();//先頭イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//1個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");//1個目を確認
 			it.GoNextNode();//イテレータをリストの末尾に向かって一つ進める
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//2個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//2個目を確認
 			it.GoNextNode();//イテレータをリストの末尾に向かって一つ進める
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//3個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");//3個目を確認
 		}
 
 		TEST(IteratorTest, TestIteratorForEndWhenTwoNode_Const)
@@ -1079,11 +1077,11 @@ namespace ex01_DataStructure
 			list.Insert(it, record);//3個目を挿入
 
 			it = list.GetFirstIter();//先頭イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//1個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");//1個目を確認
 			it.GoNextNode();//イテレータをリストの末尾に向かって一つ進める
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//2個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//2個目を確認
 			it.GoNextNode();//イテレータをリストの末尾に向かって一つ進める
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//3個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");//3個目を確認
 		}
 
 		//**********************************************************************************//**
@@ -1113,11 +1111,11 @@ namespace ex01_DataStructure
 
 			int Increment = 0;
 			it = list.GetIter(Increment);//イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//1個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");//1個目を確認
 			it = list.GetIter(++Increment);//前置インクリメント（インクリメントしてから代入）、イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//2個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//2個目を確認
 			it = list.GetIter(++Increment);//前置インクリメント（インクリメントしてから代入）、イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//3個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");//3個目を確認
 		}
 
 
@@ -1148,17 +1146,17 @@ namespace ex01_DataStructure
 
 			int Increment = 0;
 			it = list.GetIter(Increment);//イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//1個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");//1個目を確認
 
 			it = list.GetIter(Increment++);//後置インクリメント（インクリメントは代入式が終わってから）
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 1）のはず
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 1）のはず
 			it = list.GetIter(Increment);//現在のイテレータを指定してみる
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//後置インクリメントなので、itに代入後では（Increment =＝ 2）のはず
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//後置インクリメントなので、itに代入後では（Increment =＝ 2）のはず
 
 			it = list.GetIter(Increment++);//後置インクリメント（インクリメントは代入式が終わってから）
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 2）のはず
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 2）のはず
 			it = list.GetIter(Increment);//現在のイテレータを指定してみる
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//後置インクリメントなので、itに代入後では（Increment =＝ 3）のはず
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");//後置インクリメントなので、itに代入後では（Increment =＝ 3）のはず
 
 		}
 
@@ -1271,11 +1269,11 @@ namespace ex01_DataStructure
 			list.Insert(it, record);//3個目を挿入
 
 			it = list.GetEndIter();//末尾イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//3個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");//3個目を確認
 			it.GoPrevNode();//イテレータをリストの末尾に向かって一つ進める
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//2個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//2個目を確認
 			it.GoPrevNode();//イテレータをリストの末尾に向かって一つ進める
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//1個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");//1個目を確認
 		}
 
 		TEST(IteratorTest, TestIteratorForFirstWhenTwoNode_Const)
@@ -1295,11 +1293,11 @@ namespace ex01_DataStructure
 			list.Insert(it, record);//3個目を挿入
 
 			it = list.GetEndIter();//末尾イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//3個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");//3個目を確認
 			it.GoPrevNode();//イテレータをリストの末尾に向かって一つ進める
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//2個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//2個目を確認
 			it.GoPrevNode();//イテレータをリストの末尾に向かって一つ進める
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//1個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");//1個目を確認
 		}
 
 
@@ -1330,11 +1328,11 @@ namespace ex01_DataStructure
 
 			int decrement = 2;
 			it = list.GetIter(decrement);//イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//3個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");//3個目を確認
 			it = list.GetIter(--decrement);//前置インクリメント（インクリメントしてから代入）、イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//2個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//2個目を確認
 			it = list.GetIter(--decrement);//前置インクリメント（インクリメントしてから代入）、イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//1個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");//1個目を確認
 		}
 
 
@@ -1364,17 +1362,17 @@ namespace ex01_DataStructure
 
 			int decrement = 2;
 			it = list.GetIter(decrement);//イテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//1個目を確認
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");//1個目を確認
 
 			it = list.GetIter(decrement--);//後置インクリメント（インクリメントは代入式が終わってから）
-			EXPECT_EQ(true, it.GetRecord()->m_name == "ThirdIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 1）のはず
+			EXPECT_EQ(true, it.Get().m_name == "ThirdIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 1）のはず
 			it = list.GetIter(decrement);//現在のイテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//後置インクリメントなので、itに代入後では（Increment =＝ 2）のはず
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//後置インクリメントなので、itに代入後では（Increment =＝ 2）のはず
 
 			it = list.GetIter(decrement--);//後置インクリメント（インクリメントは代入式が終わってから）
-			EXPECT_EQ(true, it.GetRecord()->m_name == "SecondIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 2）のはず
+			EXPECT_EQ(true, it.Get().m_name == "SecondIn");//後置インクリメントなので、itに代入時点では（Increment =＝ 2）のはず
 			it = list.GetIter(decrement);//現在のイテレータの指定
-			EXPECT_EQ(true, it.GetRecord()->m_name == "FirstIn");//後置インクリメントなので、itに代入後では（Increment =＝ 3）のはず
+			EXPECT_EQ(true, it.Get().m_name == "FirstIn");//後置インクリメントなので、itに代入後では（Increment =＝ 3）のはず
 		}
 
 		//=================================== イテレータのコピーを行う ===================================
@@ -1395,7 +1393,7 @@ namespace ex01_DataStructure
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//ノードを指定		
 			CIterator<TRecord> copyIt = it;//イテレータのコピーを行う
-			EXPECT_EQ(true, it.GetRecord()->m_name == copyIt.GetRecord()->m_name);//コピーコンストラクト後の値がコピー元と等しい
+			EXPECT_EQ(true, it.Get().m_name == copyIt.Get().m_name);//コピーコンストラクト後の値がコピー元と等しい
 		}
 
 		TEST(IteratorTest, TestIteratorAndCopyIterator_Const)
@@ -1408,7 +1406,7 @@ namespace ex01_DataStructure
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//ノードを指定	
 			CConstIterator<TRecord> copyIt = it;//イテレータのコピーを行う
-			EXPECT_EQ(true, it.GetRecord()->m_name == copyIt.GetRecord()->m_name);//コピーコンストラクト後の値がコピー元と等しい
+			EXPECT_EQ(true, it.Get().m_name == copyIt.Get().m_name);//コピーコンストラクト後の値がコピー元と等しい
 		}
 
 
@@ -1432,9 +1430,9 @@ namespace ex01_DataStructure
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//ノードを指定
-			it.GetRecord()->m_name = "FirstIn_Changed";//代入を行う
+			it.Get().m_name = "FirstIn_Changed";//代入を行う
 			CIterator<TRecord> copyIt = it;//イテレータのコピーを行う
-			EXPECT_EQ(true, copyIt.GetRecord()->m_name == "FirstIn_Changed");//代入後の値がコピー元と等しい
+			EXPECT_EQ(true, copyIt.Get().m_name == "FirstIn_Changed");//代入後の値がコピー元と等しい
 		}
 
 		TEST(IteratorTest, TestIteratorAndCopyIteratorSubstitution_Const)
@@ -1446,10 +1444,9 @@ namespace ex01_DataStructure
 			TRecord record = { 100,"FirstIn" };//データ内容(スコア、名前)
 			list.Insert(it, record);//1個目を挿入
 			it = list.GetFirstIter();//ノードを指定
-			//it.GetRecord()->m_name = "FirstIn_Changed";//
-			//CConstIterator copyIt = it;//
-			//EXPECT_EQ(true, copyIt.GetRecord()->m_name == "FirstIn_Changed");//
-			EXPECT_TRUE(true, ASSERT_DEATH(it.GetRecord()->m_name = "FirstIn_Changed"));//constなので、コンパイルエラーになることを確認
+
+			CConstIterator<TRecord> copyIt = it;//
+			EXPECT_EQ(true, copyIt.Get() == it.Get());//
 		}
 
 
@@ -1467,10 +1464,10 @@ namespace ex01_DataStructure
 			CList<TRecord> list;//リスト生成
 			CIterator<TRecord> it_A = list.GetFirstIter();
 			CIterator<TRecord> it_B = list.GetFirstIter();
-			EXPECT_EQ(true, it_A.GetRecord()->m_name == it_B.GetRecord()->m_name);
+			EXPECT_EQ(true, it_A== it_B);//演算子オーバロード
 			it_A = list.GetEndIter();
 			it_B = list.GetEndIter();
-			EXPECT_EQ(true, it_A.GetRecord()->m_name == it_B.GetRecord()->m_name);
+			EXPECT_EQ(true, it_A == it_B);
 		}
 
 		TEST(IteratorTest, TestEQ_FirstIteratorAndEndIterator_Const)
@@ -1478,10 +1475,10 @@ namespace ex01_DataStructure
 			CList<TRecord> list;//リスト生成
 			CConstIterator<TRecord> it_A = list.GetFirstIter();
 			CConstIterator<TRecord> it_B = list.GetFirstIter();
-			EXPECT_EQ(true, it_A.GetRecord()->m_name == it_B.GetRecord()->m_name);
+			EXPECT_EQ(true, it_A == it_B);
 			it_A = list.GetEndIter();
 			it_B = list.GetEndIter();
-			EXPECT_EQ(true, it_A.GetRecord()->m_name == it_B.GetRecord()->m_name);
+			EXPECT_EQ(true, it_A == it_B);
 		}
 
 
@@ -1500,7 +1497,7 @@ namespace ex01_DataStructure
 			list.Insert(it_A, record);//1個目を挿入
 			it_A = list.GetFirstIter();//イテレータ指定
 			CIterator<TRecord> it_B = list.GetFirstIter();//イテレータ指定
-			EXPECT_EQ(true, it_A.GetRecord()->m_name == it_B.GetRecord()->m_name);
+			EXPECT_EQ(true, it_A == it_B);
 		}
 
 		TEST(IteratorTest, TestEQ_SameIterator_Const)
@@ -1512,7 +1509,7 @@ namespace ex01_DataStructure
 			list.Insert(it_A, record);//1個目を挿入
 			it_A = list.GetFirstIter();//イテレータ指定
 			CConstIterator<TRecord> it_B = list.GetFirstIter();//イテレータ指定
-			EXPECT_EQ(true, it_A.GetRecord()->m_name == it_B.GetRecord()->m_name);
+			EXPECT_EQ(true, it_A == it_B);
 		}
 
 
@@ -1534,7 +1531,7 @@ namespace ex01_DataStructure
 			list.Insert(it_A, record);//2個目を挿入
 			it_A = list.GetFirstIter();//イテレータ指定
 			CIterator<TRecord> it_B = list.GetEndIter();//Aとは異なるイテレータ指定
-			EXPECT_EQ(false, it_A.GetRecord()->m_name == it_B.GetRecord()->m_name);
+			EXPECT_EQ(false, it_A == it_B);
 		}
 
 		TEST(IteratorTest, TestEQ_DifferentIterator_Const)
@@ -1548,7 +1545,7 @@ namespace ex01_DataStructure
 			list.Insert(it_A, record);//2個目を挿入
 			it_A = list.GetFirstIter();//イテレータ指定
 			CConstIterator<TRecord> it_B = list.GetEndIter();//Aとは異なるイテレータ指定
-			EXPECT_EQ(false, it_A.GetRecord()->m_name == it_B.GetRecord()->m_name);
+			EXPECT_EQ(false, it_A == it_B);
 		}
 
 
@@ -1565,11 +1562,11 @@ namespace ex01_DataStructure
 			CList<TRecord> list;//リスト生成
 			CIterator<TRecord> it_A = list.GetFirstIter();
 			CIterator<TRecord> it_B = list.GetFirstIter();
-			EXPECT_EQ(false, it_A.GetRecord()->m_name != it_B.GetRecord()->m_name);
+			EXPECT_EQ(false, it_A != it_B);
 
 			it_A = list.GetEndIter();
 			it_B = list.GetEndIter();
-			EXPECT_EQ(false, it_A.GetRecord()->m_name != it_B.GetRecord()->m_name);
+			EXPECT_EQ(false, it_A != it_B);
 		}
 
 		TEST(IteratorTest, TestNoEQ_FirstIteratorAndEndIterator_Const)
@@ -1578,11 +1575,11 @@ namespace ex01_DataStructure
 
 			CConstIterator<TRecord> it_A = list.GetFirstIter();
 			CConstIterator<TRecord> it_B = list.GetFirstIter();
-			EXPECT_EQ(false, it_A.GetRecord()->m_name != it_B.GetRecord()->m_name);
+			EXPECT_EQ(false, it_A != it_B);
 
 			it_A = list.GetEndIter();
 			it_B = list.GetEndIter();
-			EXPECT_EQ(false, it_A.GetRecord()->m_name != it_B.GetRecord()->m_name);
+			EXPECT_EQ(false, it_A != it_B);
 		}
 
 		//**********************************************************************************//**
@@ -1600,7 +1597,7 @@ namespace ex01_DataStructure
 			list.Insert(it_A, record);//1個目を挿入
 			it_A = list.GetFirstIter();//イテレータ指定
 			CIterator<TRecord> it_B = list.GetFirstIter();//イテレータ指定
-			EXPECT_EQ(false, it_A.GetRecord()->m_name != it_B.GetRecord()->m_name);
+			EXPECT_EQ(false, it_A != it_B);
 		}
 
 		TEST(IteratorTest, TestNotEQ_SameIterator_Const)
@@ -1612,7 +1609,7 @@ namespace ex01_DataStructure
 			list.Insert(it_A, record);//1個目を挿入
 			it_A = list.GetFirstIter();//イテレータ指定
 			CConstIterator<TRecord> it_B = list.GetFirstIter();//イテレータ指定
-			EXPECT_EQ(false, it_A.GetRecord()->m_name != it_B.GetRecord()->m_name);
+			EXPECT_EQ(false, it_A != it_B);
 		}
 
 
@@ -1634,7 +1631,7 @@ namespace ex01_DataStructure
 			list.Insert(it_A, record);//2個目を挿入
 			it_A = list.GetFirstIter();//イテレータ指定
 			CIterator<TRecord> it_B = list.GetEndIter();//Aとは異なるイテレータ指定
-			EXPECT_EQ(true, it_A.GetRecord()->m_name != it_B.GetRecord()->m_name);
+			EXPECT_EQ(true, it_A != it_B);
 		}
 
 		TEST(IteratorTest, TestNotEQ_DifferentIterator_Const)
@@ -1648,7 +1645,7 @@ namespace ex01_DataStructure
 			list.Insert(it_A, record);//2個目を挿入
 			it_A = list.GetFirstIter();//イテレータ指定
 			CConstIterator<TRecord> it_B = list.GetEndIter();//Aとは異なるイテレータ指定
-			EXPECT_EQ(true, it_A.GetRecord()->m_name != it_B.GetRecord()->m_name);
+			EXPECT_EQ(true, it_A != it_B);
 		}
 
 

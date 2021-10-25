@@ -24,14 +24,8 @@ int main()
 		return 0;
 	}
 
-	//ファイルデータをリストにセット
-	//DataInList(file, myList);
-
-	//※↓main関数内でごちゃごちゃと書いてしまっていますが、これは今だけで、完成版では関数化してまとめます
 
 	std::string line;//読み込み用（1行ずつ）
-
-	CIterator<TRecord> it = myList.GetEndIter();
 
 	while (std::getline(file, line)) {  // 1行ずつ読み込む
 		int lineNum = 0;
@@ -49,16 +43,18 @@ int main()
 
 		TRecord lineData = { lineNum, lineName };
 		//リストに追加
+		CIterator<TRecord> it = myList.GetEndIter();
 		myList.Insert(it, lineData);
-		it = myList.GetEndIter();
+
 	}
 
 	//リストの先頭から描画
-	for (CIterator<TRecord> i = myList.GetFirstIter(); i.m_node->m_next != myList.GetFirstIter().m_node; i.GoNextNode())
+	for (CIterator<TRecord> i = myList.GetFirstIter(); myList.CheckIterDummy(i)==false; i.GoNextNode())
 	{
-		std::cout << i.GetRecord()->m_score;
-		std::cout << i.GetRecord()->m_name << std::endl;
+		std::cout << i.Get().m_score;
+		std::cout << i.Get().m_name << std::endl;
 	}
+
 
 	getchar();
 
